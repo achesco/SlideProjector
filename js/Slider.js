@@ -134,7 +134,6 @@ Slider.prototype.scroll = function(toIndex) {
 // 'roll' type scroll performer 
 Slider.prototype.scroll_roll = function(toIndex, nextCurrentItem) {
 	var pos = (this.stripeShift + ( this.currentIndex - toIndex ) * this.roll_getStepWidth(toIndex));
-	console.log( this.roll_getStepWidth(toIndex) )
 	this.contentStripe
 		.animate({ left: Math.min(pos, 0) }, {
 			queue: false,
