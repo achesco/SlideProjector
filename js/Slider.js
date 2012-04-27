@@ -13,11 +13,7 @@ var Slider = function(options, scrollOptions) {
     this.currentIndex = 0;
     this.currentItem = $(this.slideItems.get(this.currentIndex));
     this.lastIndex = this.slideItems.length - 1;
-    
-    // init scroll style
-    this['initScroll_' + this.options.scrollType]();
-    this._scroll = this['scroll_' + this.options.scrollType];
-    
+
     // init prev-next controlls and show next (optional)
     this.scrollPrevControl = $(this.options.scrollPrevControl).click($.proxy(this.onScrollPrev, this));
     this.scrollNextControl = $(this.options.scrollNextControl).click($.proxy(this.onScrollNext, this)).removeClass(this.options.hiddenClassName);
@@ -25,21 +21,58 @@ var Slider = function(options, scrollOptions) {
     // init previews controls (optional)
     this.previewItems = $(this.options.previewItems).click($.proxy(this.onPreviewClick, this));
     
+    // init scroll style
+    this['initScroll_' + this.options.scrollType]();
+    this._scroll = this['scroll_' + this.options.scrollType];
+    
     // init scroll on idle (optional) 
     this.options.idleScroll && this.initIdleScroll();
 }
 
-// 'roll' type scroll performer
+// 'roll' type scroll init performer
 Slider.prototype.initScroll_roll = function() {
-	this.lastIndex -= (this.scrollOptions.showSlides - 1);
-	this.stepWidth = this.currentItem.outerWidth(true);
+
+	width = 0;
+	this.slideItems.each(function() {
+		width += $(this).outerWidth(true);
+	});
+	this.contentStripe.width( width );
+
+	this.viewport = $(this.scrollOptions.viewport);
+	viewportWidth = this.viewport.width();
+	
+	this.stripeShift = parseInt(this.contentStripe.css("left"), 10);
+
+	this.stepWidth = this.scrollOptions.stepWidth || this.currentItem.outerWidth(true);
+	Slider.prototype.roll_getStepWidth = function(toIndex) {
+		if(this.scrollOptions.stepWidth == "current") {
+			return $(this.slideItems.get((this.currentIndex < toIndex ? this.currentIndex : toIndex))).outerWidth(true);
+		}
+		else
+			return this.scrollOptions.stepWidth;
+	};
+
+	Slider.prototype.roll_onPositionUpdate = function() {
+		viewportWidth = this.viewport.width();
+		this.stripeShift = parseInt(this.contentStripe.css("left"), 10);
+		var fullWidth = Math.abs(this.stripeShift) + viewportWidth;
+		this.scrollPrevControl[this.stripeShift >= 0 ? 'addClass' : 'removeClass'](this.options.hiddenClassName);
+		this.scrollNextControl[fullWidth >= (width - this.scrollOptions.stepSensitivity) ? 'addClass' : 'removeClass'](this.options.hiddenClassName);
+	};
+	this.roll_onPositionUpdate();
+
+	Slider.prototype.roll_onResizeUpdate = function() {
+		viewportWidth = this.viewport.width();
+		this.roll_onPositionUpdate();
+	};
+	$(window).resize($.proxy( this.roll_onResizeUpdate, this ));
 }
-// 'fade' type scroll performer
+// 'fade' type scroll init performer
 Slider.prototype.initScroll_fade = function() {
 	$(this.slideItems.css('opacity', 0).get(this.currentIndex)).css('opacity', 1);
 }
 
-// init scroll on idle 
+// init scroll on idle
 Slider.prototype.initIdleScroll = function() {
 	this.idleSlideTimeout = null;
 	this.setIdleSlideTimeout();
@@ -100,11 +133,16 @@ Slider.prototype.scroll = function(toIndex) {
 }
 // 'roll' type scroll performer 
 Slider.prototype.scroll_roll = function(toIndex, nextCurrentItem) {
+	var pos = (this.stripeShift + ( this.currentIndex - toIndex ) * this.roll_getStepWidth(toIndex));
+	console.log( this.roll_getStepWidth(toIndex) )
 	this.contentStripe
-		.animate({ left: -toIndex * this.stepWidth }, {
+		.animate({ left: Math.min(pos, 0) }, {
 			queue: false,
 			duration: this.options.duration,
-			complete: $.proxy(this.updateAfter, this)
+			complete: $.proxy(function() {
+				this.roll_onPositionUpdate();
+				this.updateAfter();
+			}, this)
 		});
 }
 // 'fade' type scroll performer
@@ -120,13 +158,17 @@ Slider.prototype.scroll_fade = function(toIndex, nextCurrentItem) {
 		complete: $.proxy(this.updateAfter, this)
 	});
 }
-// gui updater
+// gui updater 
 Slider.prototype.updateBefore = function() {
-	this.scrollPrevControl[this.currentIndex <= 0 ? 'addClass' : 'removeClass'](this.options.hiddenClassName);
-	this.scrollNextControl[this.currentIndex >= this.lastIndex ? 'addClass' : 'removeClass'](this.options.hiddenClassName);
+	this.updatePrevNextControls();
 
 	$(this.previewItems.removeClass(this.options.previewSelectedClassName).get(this.currentIndex))
 		.addClass(this.options.previewSelectedClassName);
+}
+//gui updater 
+Slider.prototype.updatePrevNextControls = function() {
+	this.scrollPrevControl[this.currentIndex <= 0 ? 'addClass' : 'removeClass'](this.options.hiddenClassName);
+	this.scrollNextControl[this.currentIndex >= this.lastIndex ? 'addClass' : 'removeClass'](this.options.hiddenClassName);
 }
 // gui updater
 Slider.prototype.updateAfter = function() {
@@ -140,22 +182,24 @@ Slider.prototype.updateAfter = function() {
 // default Slider options
 Slider.prototype.defaultOptions = {
 	scrollType: 'roll' // sroll type ('roll', 'fade')
-	, contentStripe: new jQuery
-	, slideItems: new jQuery
-	, scrollPrevControl: new jQuery
-	, scrollNextControl: new jQuery
-	, previewItems: null
+	, contentStripe: null // String|Element|jQuery
+	, slideItems: null // String|Element|jQuery
+	, scrollPrevControl: null // String|Element|jQuery
+	, scrollNextControl: null // String|Element|jQuery
+	, previewItems: null // String|Element|jQuery
 	, duration: 1000
 	, idleScroll: false
 	, idleScrollInterval: 4000
 	, idleScrollIntroOnly: true
 	, onBeforeScroll: null
 	, onAfterScroll: null
-	, hiddenClassName: 'hidden'
+	, hiddenClassName: 'g-hidden'
 	, selectedClassName: 'selected'
 	, previewSelectedClassName: 'selected'
 };
 Slider.prototype.defaultOptions_roll = {
-	showSlides: 1
+	viewport: null // String|Element|jQuery
+	, stepWidth: "current" // String|Number 'current', if null, first slide width
+	, stepSensitivity: 0 
 };
 Slider.prototype.defaultOptions_fade = {};
