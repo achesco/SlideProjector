@@ -3,8 +3,8 @@
  */
 f.ui.Slider = function(options, scrollOptions) {
 
-    $.extend(this.options, (options || {}) );
-    $.extend(this.scrollOptions, (scrollOptions || {}) );
+	this.options = $.extend({}, this.options, this.defaultOptions, (options || {}) );
+	this.scrollOptions = $.extend({}, this.scrollOptions, this.defaultScrollOptions, (scrollOptions || {}) );
     
     this.slideItems = $(this.options.slideItems);
     this.contentStripe = $(this.options.contentStripe);
@@ -28,7 +28,7 @@ f.ui.Slider.prototype = {
 	/**
 	 * Дефолтные настройки слайдера.
 	 */
-	options: {
+	defaultOptions: {
 		contentStripe: null // String|Element|jQuery
 		, slideItems: null // String|Element|jQuery
 		, scrollPrevControl: null // String|Element|jQuery
@@ -48,7 +48,7 @@ f.ui.Slider.prototype = {
 	/**
 	 * Опции конкретной имплементации слайдера.
 	 */
-	scrollOptions: {},
+	defaultScrollOptions: {},
 	
 	/**
 	 * Базовая инициализация пользовательских событий.
@@ -96,8 +96,8 @@ f.ui.Slider.prototype = {
 	 * Выполнить "самоскрол".
 	 */
 	idleSlide: function() {
-		var toIndex = this.currentIndex[0]++;
-		if(toIndex > this.lastIndex)
+		var toIndex = this.currentIndex[0];
+		if(++toIndex > this.lastIndex)
 			toIndex = 0;
 		this.scroll(toIndex);
 		this.setIdleSlideTimeout();
@@ -112,7 +112,7 @@ f.ui.Slider.prototype = {
 	},
 	
 	/**
-	 * Возвращает первый активный слайд.
+	 * Возвращает слайд по индексу.
 	 * @returns {jQuery} Слайд
 	 */
 	getItem: function(idx) {
@@ -145,11 +145,10 @@ f.ui.Slider.prototype = {
 	 */
 	scroll: function(toIndex, delta) {
 		this.clearIdleSlideTimeout();
-		
-		toIndex = toIndex || this.currentIndex[0] + delta;
+		toIndex = toIndex === null ? this.currentIndex[0] + delta : toIndex;
+
 		var perform = true;
 		if(this.beforeScroll(toIndex)) {
-
 			if(typeof this.options.onBeforeScroll == "function") {
 				perform = this.options.onBeforeScroll();
 			}

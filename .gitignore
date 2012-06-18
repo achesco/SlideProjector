@@ -11,9 +11,8 @@ bak
 robots.txt
 .htaccess
 .htpasswd
-/.idea
 
-/.settings
+.settings
 .project
 .buildpath
 /.externalToolBuilders
