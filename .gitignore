@@ -11,9 +11,8 @@ bak
 robots.txt
 .htaccess
 .htpasswd
-
+buildfile.xml
 .settings
 .project
 .buildpath
-/.externalToolBuilders
-/cache.properties
+wro4j
