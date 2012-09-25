@@ -2,8 +2,7 @@
  * @class Слайдер
  */
 f.ui.FadeSlider = function(options, scrollOptions) {
-	this.parent = f.ui.FadeSlider.superclass;
-	this.parent.constructor.call(this, options, scrollOptions);
+	f.ui.Slider.apply(this, arguments);
 	
 	$(this.slideItems.css('opacity', 0).addClass(this.options.hiddenClassName)
 		.get(this.currentIndex)).css('opacity', 1).removeClass(this.options.hiddenClassName);
@@ -18,7 +17,7 @@ f.ui.FadeSlider.prototype.scrollOptions = {
 };
 
 f.ui.FadeSlider.prototype.afterScroll = function(toIndex) {
-	this.parent.afterScroll.call(this, toIndex);
+	this.superclass.afterScroll.call(this, toIndex);
 	$(this.previewItems.removeClass(this.options.previewSelectedClassName).get(toIndex))
 		.addClass(this.options.previewSelectedClassName);
 }

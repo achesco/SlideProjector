@@ -2,8 +2,7 @@
  * @class Слайдер
  */
 f.ui.PopRollSlider = function(options, scrollOptions) {
-	this.parent = f.ui.PopRollSlider.superclass;
-	this.parent.constructor.call(this, options, scrollOptions);
+	f.ui.Slider.apply(this, arguments);
 	this.initLayout();
 };
 f.extend(f.ui.PopRollSlider, f.ui.Slider);
