@@ -1,4 +1,6 @@
-Примеры в html-файлах `fade.html` и `poproll.html`
+Slider
+======
 
-Базируется на
-https://github.com/triangle/fundament
+Two slider implementations: Fade and PopRol. See examples to figure it out.
+
+Uses f.extend from https://github.com/triangle/fundament
