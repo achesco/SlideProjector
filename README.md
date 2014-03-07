@@ -40,4 +40,4 @@ Uses f.extend from https://github.com/triangle/fundament
 
 #### PopRollSlider
 
-Doesn't has any specific options.
+Doesn't have any specific options.
