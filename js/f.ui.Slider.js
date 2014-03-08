@@ -10,7 +10,7 @@ f.ui.Slider = function (options, scrollOptions) {
 	this.contentStripe = $(this.options.contentStripe);
 
 	this.currentIndex = [0];
-	this.lastIndex = this.slideItems.size() - 1;
+	this.lastIndex = this.slideItems.length - 1;
 
 	// init prev-next controlls and show next (optional)
 	this.scrollPrevControl = $(this.options.scrollPrevControl);
