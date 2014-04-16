@@ -33,7 +33,16 @@ f.ui.Slider.prototype = {
 		, slideItems: null // String|Element|jQuery
 		, scrollPrevControl: null // String|Element|jQuery
 		, scrollNextControl: null // String|Element|jQuery
-		, previewItems: null, duration: 1000, idleScroll: false, idleScrollInterval: 4000, idleScrollIntroOnly: true, onBeforeScroll: null, onAfterScroll: null, hiddenClassName: 'g-hidden', selectedClassName: 'selected', previewSelectedClassName: "selected"
+		, previewItems: null
+		, duration: 1000
+		, idleScroll: false
+		, idleScrollInterval: 4000
+		, idleScrollIntroOnly: true
+		, onBeforeScroll: null
+		, onAfterScroll: null
+		, hiddenClassName: 'g-hidden'
+		, selectedClassName: 'selected'
+		, previewSelectedClassName: "selected"
 	},
 
 	/**
