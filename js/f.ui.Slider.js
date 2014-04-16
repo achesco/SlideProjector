@@ -177,6 +177,7 @@ f.ui.Slider.prototype = {
 		this.currentIndex[0] = toIndex;
 		this.scrollPrevControl[this.currentIndex <= 0 ? "addClass" : "removeClass"](this.options.hiddenClassName);
 		this.scrollNextControl[this.currentIndex >= this.lastIndex ? "addClass" : "removeClass"](this.options.hiddenClassName);
+		typeof this.options.onAfterScroll == "function" && this.options.onAfterScroll.call(this);
 	},
 
 	/**
