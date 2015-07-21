@@ -1,0 +1,28 @@
+{
+    "preset": "yandex",
+    "disallowMultipleVarDecl": null,
+    "disallowMultipleLineBreaks": null,
+    "requireSpaceAfterLineComment": null,
+    "disallowQuotedKeysInObjects": null,
+
+    "excludeFiles": [
+
+    ],
+
+    "plugins": [
+        "jscs-jsdoc"
+    ],
+
+    "jsDoc": {
+        "checkAnnotations": {
+            "preset": "jsdoc3",
+            "extra": {
+                "override": true
+            }
+        },
+        "checkParamNames": true,
+        "requireParamTypes": true,
+        "checkReturnTypes": true,
+        "requireReturnTypes": true
+    }
+}

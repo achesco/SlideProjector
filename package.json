@@ -1,0 +1,19 @@
+{
+  "name": "SlideProjector",
+  "version": "0.3",
+  "description": "To slide the slides in different ways",
+  "author": "Anton Lysenko <achesco@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/achesco/SlideProjector"
+  },
+  "bugs": {
+    "url": "https://github.com/achesco/SlideProjector/issues"
+  },
+  "keywords": [
+    "carousel",
+    "slides",
+    "jquery",
+    "plugin"
+  ]
+}

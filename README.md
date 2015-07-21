@@ -1,43 +1,97 @@
-Slider
-======
+# SlideProjector
 
-Two slider implementations: FadeSlider and PopRollSlider. See examples to figure it out.
+jQuery plugin to slide the slides in different ways. Two implementations are available for the moment. 
+Can be extended with custom implementations.
 
-Uses f.extend from https://github.com/triangle/fundament
+## fade (default)
+Simple transition through fade-in-out. With optional preview items (or just some bullets).
 
-### Possible options
 
-`new j.ui._SliderImplementation_(CommonSliderOptions, ConcreteImplementationOptions);`
+## poproll
+Supports responsive to resize stripe of variable width slides.
 
-#### Common
+
+## Usage
+
+Available with npm and bower.
+
+`npm install SlideProjector`
+
+`bower install SlideProjector`
+
+Requires jquery (surprisingly)
+
+`<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>`
+
+Init with:
+
+`$('#content-stripe').slideprojector(commonOptions, implementationOptions);`
+
+### Setup common options defaults
+
+Available through `$.fn.slideprojector.defaults`. For instance to set default animation duration to 750ms, use: 
+`$.fn.slideprojector.defaults.duration = 750`
+
+### commonOptions
+
+* `{String} implementation` Implementaon name. 'fade' and 'poproll' are available. 
+More can be added with `$.fn.slideprojector.registerImplementation(impl, name)`
+* `{String|Element|jQuery} slideItems`
+* `{String|Element|jQuery} [scrollPrevControl]`
+* `{String|Element|jQuery} [scrollNextControl]`
+* `{Number} [selectedIndex=0]` Initially selected item index
+* `{Boolean} [cycleSlides=true]` Cycle slides from last to first and otherwise.
+* `{String|Element|jQuery} [previewItems]`
+* `{Number} [duration=1000]` Slides switch transition duration (ms)
+* `{Boolean} [idleScroll=false]` Enable spontaneous periodical scroll on idle
+* `{Number} [idleScrollInterval=4000]` Idle interval (ms)
+* `{Function} [onBeforeScroll]` Before scroll callback, can cancel scroll with `return false`
+* `{Function} [onAfterScroll]` After scroll callback
+* `{String} [hiddenClassName='sp-hidden']` Class name to hide elements
+* `{String} [previewSelectedClassName='sp-selected']` Class name for active preview item
+
+### implementationOptions
+#### fade
+
+`{Boolean} [queueSlidesAnimation=false]` Perform fade in for active item after fade out of previos slide has completed
+
+#### scroll
+
+No specific options available.
+
+#### poproll
+
+No specific options available.
+Following commonOptions will be igonred: `previewItems`, `previewSelectedClassName`, `cycleSlides`.
+
+### Custom implementations
 
 ```js
-{
-	contentStripe: null, // String|Element|jQuery
-	slideItems: null, // String|Element|jQuery
-	scrollPrevControl: null, // String|Element|jQuery
-	scrollNextControl: null, // String|Element|jQuery
-	previewItems: null,
-	duration: 1000,
-	idleScroll: false,
-	idleScrollInterval: 4000,
-	idleScrollIntroOnly: true,
-	onBeforeScroll: null,
-	onAfterScroll: null,
-	hiddenClassName: 'g-hidden',
-	selectedClassName: 'selected',
-	previewSelectedClassName: "selected",
-}
+var impl = function () {
+    this.__super.constructor.apply(this, arguments);
+};
+
+$.fn.slideprojector.registerImplementation(impl, 'custom');
+
+$.extend(impl.prototype, {
+
+    getImplementationDefaults: function () {
+        return {
+            logFormat: '[%s] %s perfored'
+        };
+    },
+
+    afterScroll: function (toIndex) {
+        this.__super.afterScroll.call(this, toIndex);
+        console.log(this.implOptions.logFormat, 'scroll', new Date());
+    }
+});
 ```
 
-#### FadeSlider
+Custom implementation now available with
 
 ```js
-{
-	queueSlidesAnimation: false
-}
+$('#content-stripe').slideprojector({
+    implementation: 'custom'
+});
 ```
-
-#### PopRollSlider
-
-Doesn't have any specific options.
