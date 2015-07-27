@@ -6,9 +6,6 @@
     "Anton Lysenko <achesco@gmail.com>"
   ],
   "description": "To slide the slides, in different ways",
-  "main": [
-    "dist/jquery.slideprojector.js",
-  ],
   "keywords": [
     "slides",
     "carousel",
@@ -19,7 +16,7 @@
   ],
   "license": "MIT",
   "ignore": [
-    ".*",
+    "**/.*",
     "node_modules",
     "bower_components",
     "src",
