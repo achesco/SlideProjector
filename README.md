@@ -3,13 +3,17 @@
 jQuery plugin to slide the slides in different ways. Two implementations are available for the moment. 
 Can be extended with custom implementations.
 
-## fade (default)
-Simple transition through fade-in-out. With optional preview items (or just some bullets).
+## fade
+Simple transition through fade-in-out. With optional preview items (or just some bullets). 
+[Demo](http://codepen.io/achesco/full/dogLYV).
 
+## slide
+Simple transition through slide in. With optional preview items (or just some bullets). 
+[Demo](http://codepen.io/achesco/full/GJYLZB)
 
 ## poproll
-Supports responsive to resize stripe of variable width slides.
-
+Supports responsive to resize stripe of variable width slides. 
+[Demo](http://codepen.io/achesco/full/MwPRja)
 
 ## Usage
 
@@ -23,11 +27,16 @@ Requires jquery (surprisingly)
 
 `<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>`
 
-Init with:
+### Scripts
 
-`$('#content-stripe').slideprojector(commonOptions, implementationOptions);`
+Use fully packed script `dist/jquery.slideprojector.full.js` or `dist/jquery.slideprojector.js` with any 
+of the following: `dist/jquery.slideprojector.(fade|slide|poproll).js`.
 
-### Setup common options defaults
+Init with: `$('#content-stripe').slideprojector(commonOptions, implementationOptions);`
+
+Access with: `$('#content-stripe').data('slideprojector').onScrollNext();`
+
+### Setup common options default values
 
 Available through `$.fn.slideprojector.defaults`. For instance to set default animation duration to 750ms, use: 
 `$.fn.slideprojector.defaults.duration = 750`
@@ -53,12 +62,12 @@ More can be added with `$.fn.slideprojector.registerImplementation(impl, name)`
 ### implementationOptions
 #### fade
 
-`{Boolean} [queueSlidesAnimation=false]` Perform fade in for active item after fade out of previos slide has completed
+* `{Boolean} [queueSlidesAnimation=false]` Perform fade in for active item after fade out of previos slide has completed
 
 #### slide
 
-`{Number} [basicZIndex=0]` Basic CSS z-index property value for slide items
-`{Number} [animationZIndex=1]` z-index value to set during slide animation to make new slide ontop of current one
+* `{Number} [basicZIndex=0]` Basic CSS z-index property value for slide items
+* `{Number} [animationZIndex=1]` z-index value to set during slide animation to make new slide ontop of current one
 
 #### poproll
 
