@@ -1,7 +1,7 @@
 {
-  "name": "SlideProjector",
-  "version": "0.3",
-  "description": "To slide the slides in different ways",
+  "name": "slideprojector",
+  "version": "0.3.0",
+  "description": "To slide the slides, in different ways",
   "author": "Anton Lysenko <achesco@gmail.com>",
   "repository": {
     "type": "git",
@@ -11,9 +11,18 @@
     "url": "https://github.com/achesco/SlideProjector/issues"
   },
   "keywords": [
-    "carousel",
     "slides",
+    "carousel",
+    "scroll",
     "jquery",
-    "plugin"
-  ]
+    "plugin",
+    "ui"
+  ],
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-uglify": "^0.9.1",
+    "load-grunt-tasks": "^3.2.0"
+  }
 }

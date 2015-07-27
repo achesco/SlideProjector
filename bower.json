@@ -1,0 +1,29 @@
+{
+  "name": "slideprojector",
+  "version": "0.3.0",
+  "homepage": "https://github.com/achesco/SlideProjector",
+  "authors": [
+    "Anton Lysenko <achesco@gmail.com>"
+  ],
+  "description": "To slide the slides, in different ways",
+  "main": [
+    "dist/jquery.slideprojector.js",
+  ],
+  "keywords": [
+    "slides",
+    "carousel",
+    "scroll",
+    "jquery",
+    "plugin",
+    "ui"
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "examples",
+    "Gruntfile.js"
+  ]
+}

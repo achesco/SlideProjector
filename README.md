@@ -40,7 +40,7 @@ More can be added with `$.fn.slideprojector.registerImplementation(impl, name)`
 * `{String|Element|jQuery} [scrollPrevControl]`
 * `{String|Element|jQuery} [scrollNextControl]`
 * `{Number} [selectedIndex=0]` Initially selected item index
-* `{Boolean} [cycleSlides=true]` Cycle slides from last to first and otherwise.
+* `{Boolean} [cycleSlides=true]` Cycle slides from last to first and otherwise
 * `{String|Element|jQuery} [previewItems]`
 * `{Number} [duration=1000]` Slides switch transition duration (ms)
 * `{Boolean} [idleScroll=false]` Enable spontaneous periodical scroll on idle
@@ -55,9 +55,10 @@ More can be added with `$.fn.slideprojector.registerImplementation(impl, name)`
 
 `{Boolean} [queueSlidesAnimation=false]` Perform fade in for active item after fade out of previos slide has completed
 
-#### scroll
+#### slide
 
-No specific options available.
+`{Number} [basicZIndex=0]` Basic CSS z-index property value for slide items
+`{Number} [animationZIndex=1]` z-index value to set during slide animation to make new slide ontop of current one
 
 #### poproll
 

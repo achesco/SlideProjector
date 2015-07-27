@@ -4,7 +4,7 @@
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script type="text/javascript" src="../src/plugin.js"></script>
-		<script type="text/javascript" src="../src/fade.js"></script>
+		<script type="text/javascript" src="../src/slide.js"></script>
 
 		<style>
 			.sp-hidden {
@@ -20,9 +20,11 @@
 			
 			.viewport {
 				position: relative;
+				width: 300px;
+				height: 200px;
 				margin: 0 30px;
 				background: #ccc;
-				text-align: center;
+				overflow: hidden;
 			}
 			
 			.prev,
@@ -45,10 +47,9 @@
 				position: absolute;
 				top: 0;
 				left: 0;
-
-				display: inline-block;
 				width: 300px;
 				height: 200px;
+				text-align: center;
 			}
 			
 			.previews {
@@ -99,12 +100,14 @@
 		<script>
 			$(function() {
 				$('.viewport').slideprojector({
-					implementation: 'fade',
+					implementation: 'slide',
 					duration: 300,
 					slideItems: $('.item'),
 					scrollPrevControl: $('.prev'),
 					scrollNextControl: $('.next'),
-					previewItems: $('.preview-item')
+					previewItems: $('.preview-item'),
+
+					cycleSlides: false
 				},{
 			        queueSlidesAnimation: true
 			    });

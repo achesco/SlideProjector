@@ -31,12 +31,6 @@
             return !this.inProgress && this.__super.beforeScroll.apply(this, arguments);
         },
 
-        afterScroll: function (toIndex) {
-            this.__super.afterScroll.call(this, toIndex);
-            $(this.previewItems.removeClass(this.options.previewSelectedClassName).get(toIndex))
-                .addClass(this.options.previewSelectedClassName);
-        },
-
         performScroll: function (toIndex) {
             if (this.implOptions.queueSlidesAnimation) {
                 this.performScroll_out(this.performScroll_in.bind(this, toIndex));
