@@ -1,6 +1,6 @@
 {
   "name": "slideprojector",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "To slide the slides, in different ways",
   "author": "Anton Lysenko <achesco@gmail.com>",
   "repository": {
@@ -14,8 +14,7 @@
     "slides",
     "carousel",
     "scroll",
-    "jquery",
-    "plugin",
+    "jquery-plugin",
     "ui"
   ],
   "devDependencies": {

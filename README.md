@@ -1,7 +1,7 @@
-# SlideProjector
+# SlideProjector 0.3
 
-jQuery plugin to slide the slides in different ways. Two implementations are available for the moment. 
-Can be extended with custom implementations.
+Extremely lightweight jQuery plugin to slide the slides in different ways. Two implementations are available for the 
+moment. Can be extended with custom implementations.
 
 ## fade
 Simple transition through fade-in-out. With optional preview items (or just some bullets). 
