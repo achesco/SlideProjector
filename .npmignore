@@ -1,0 +1,6 @@
+examples
+src
+.jscsrc
+.jshintrc
+Gruntfile.js
+bower.json
