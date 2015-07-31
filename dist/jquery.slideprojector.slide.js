@@ -22,7 +22,8 @@
         getImplementationDefaults: function () {
             return {
                 basicZIndex: 0,
-                animationZIndex: 1
+                animationZIndex: 1,
+                easing: 'swing'
             };
         },
 
@@ -42,16 +43,17 @@
                 })
                 .removeClass(this.options.hiddenClassName)
                 .animate({
-                    left: 0
-                }, {
-                    queue: false,
-                    duration: this.options.duration,
-                    complete: function () {
-                        newItem.css('zIndex', this.implOptions.basicZIndex);
-                        item.addClass(this.options.hiddenClassName);
-                        this.inProgress = false;
-                    }.bind(this)
-                });
+                        left: '0%'
+                    }, {
+                        queue: false,
+                        easing: this.implOptions.easing,
+                        duration: this.options.duration,
+                        complete: function () {
+                            newItem.css('zIndex', this.implOptions.basicZIndex);
+                            item.addClass(this.options.hiddenClassName);
+                            this.inProgress = false;
+                        }.bind(this)
+                    });
         }
     });
 

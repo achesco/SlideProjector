@@ -65,6 +65,7 @@ Available through `$.fn.slideprojector.defaults`. For instance to set default an
 
 * `{Number} [basicZIndex=0]` Basic CSS z-index property value for slide items
 * `{Number} [animationZIndex=1]` z-index value to set during slide animation to make new slide ontop of current one
+* `{String} [easing='swing']` Animation easing equation name for jQuery.animate. `'swing'`, `'linear'` available.
 
 #### poproll
 
